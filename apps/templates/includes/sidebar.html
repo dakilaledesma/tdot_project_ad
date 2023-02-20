@@ -75,6 +75,22 @@
 								</ul>
 							</div>
 						</li>
+                        <li class="nav-item {% if 'ui-' in segment %} active {% endif %}">
+							<a data-toggle="collapse" href="#werf">
+								<i class="fas fa-layer-group"></i>
+								<p>WERF Lid Cost Tools</p>
+								<span class="caret"></span>
+							</a>
+							<div class="collapse {% if 'ui-' in segment %} show {% endif %}" id="werf">
+								<ul class="nav nav-collapse">
+									<li class="{% if 'ui-avatars' in segment %} active {% endif %}">
+										<a href="/werf_lc_cisterns.html">
+											<span class="sub-item">Cistern</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</li>
 						<li class="nav-item {% if 'tables' in segment %} active {% endif %}">
 							<a data-toggle="collapse" href="#tables">
 								<i class="fas fa-table"></i>
