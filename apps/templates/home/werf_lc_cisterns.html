@@ -1,0 +1,105 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} UI Buttons {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+	<div class="content">
+		<div class="page-inner">
+			<div class="page-header">
+				<h4 class="page-title">Processing Workflow</h4>
+				<ul class="breadcrumbs">
+					<li class="nav-home">
+						<a href="#">
+							<i class="flaticon-home"></i>
+						</a>
+					</li>
+					<li class="separator">
+						<i class="flaticon-right-arrow"></i>
+					</li>
+					<li class="nav-item">
+						<a href="#">WERF LID Cost Tools</a>
+					</li>
+					<li class="separator">
+						<i class="flaticon-right-arrow"></i>
+					</li>
+					<li class="nav-item">
+						<a href="#">Cisterns</a>
+					</li>
+				</ul>
+			</div>
+			<div class="row">
+				<div class="col-md-12" id="main_panel">
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title">1. Design and Maintenance Options</h4>
+						</div>
+						<div class="card-body">
+							<p class="demo">
+                                <h3>Storage Requirements</h3>
+                                <label for="s1">Impervious Drainage Area, DA (often roof area)</label><input type="text" id="s1"><br>
+                                <label for="s2">Max Design Rainfall Event</label><input type="text" id="s2"><br>
+                                <label for="s3">Precipitation Volume Generated per Event</label><input type="text" id="s3"><br>
+                                <label for="s4">Total Storage Needed</label><input type="text" id="s4"><br>
+
+                                <h3>System Characteristics</h3>
+                                <label for="sc1">Type of Tank Desired (P=Plastic, M=Metal, F=Fiberglass, C=Concrete. See sizing cost chart below)</label><input type="text" id="sc1"><br>
+                                <label for="sc2">Primary Use (I = Indoor*, Non-potable; O = Outdoor Irrigation.)</label><input type="text" id="sc2"><br>
+                                <label for="sc3">Height of Building (Used to calculate 'Indoor' Use costs)</label><input type="text" id="sc3"><br>
+                                <label for="sc4">Number of Fixtures per Floor (toilets, used to calculate 'Indoor' Use costs)</label><input type="text" id="sc4"><br>
+
+                                <h3>Design & Maintenance Options</h3>
+                                <label for="d1">Choose Level of Maintenance, Irrigation ("H"=high; "M"=medium; "L"=low)</label><input type="text" id="d1"><br>
+
+                                <h3>Whole Life Cost Options</h3>
+                                <label for="w1">Discount Rate)</label><input type="text" id="w1"><br>
+							</p>
+						</div>
+					</div>
+                    <div class="card">
+						<div class="card-header">
+							<h4 class="card-title">2. Capital Costs</h4>
+						</div>
+						<div class="card-body">
+							<p class="demo">
+                                <h2>Method A: Simple Cost Based on Tank Volume*</h2>
+                                <h3>Cost Based on Drainage Area</h3>
+                                <label for="s1">Tank Size (Gallons)</label><input type="text" id="s1"><br>
+                                <label for="s2">Tank Costs per Gallon</label><input type="text" id="s2"><br>
+                                <label for="s3">Estimated Tank Cost</label><input type="text" id="s3"><br>
+							</p>
+						</div>
+					</div>
+                    <div class="card">
+						<div class="card-header">
+							<h4 class="card-title">Verify Selected Parameters</h4>
+						</div>
+						<div class="card-body">
+							<p class="demo">
+								<button class="btn btn-success" id="process_pdf_button">
+                                    <span class="btn-label">
+                                        <i class="fa fa-check"></i>
+                                    </span>
+                                    Verify
+                                </button>
+							</p>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+	<!-- Atlantis DEMO methods, don't include it in your project! -->
+<!--	<script src="/static/assets/js/setting-demo2.js"></script>-->
+	<script src="/static/assets/js/p_workflow.js"></script>
+
+{% endblock javascripts %}
