@@ -1,10 +1,11 @@
-"""
-"""
-
 import googlemaps
 import pprint
+import json
 
-gmaps = googlemaps.Client(key='')
+with open("../apps/static/assets/tokens/tokens") as tokens_file:
+    tokens = json.load(tokens_file)
+
+gmaps = googlemaps.Client(key=tokens["gmaps"])
 
 nearby_result = gmaps.places_nearby(location=(40.714224, -73.961452),
                              radius=500,
