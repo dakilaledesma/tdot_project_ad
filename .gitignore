@@ -34,4 +34,5 @@ apps/static/assets/.temp
 .idea
 
 apps/static/assets/tokens
+apps/processing/data
 
