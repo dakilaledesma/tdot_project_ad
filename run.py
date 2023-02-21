@@ -17,7 +17,7 @@ DEBUG = (os.getenv('DEBUG', 'False') == 'True')
 # The configuration
 get_config_mode = 'Debug' if DEBUG else 'Production'
 
-if not os.path.isdir("apps/static/assets/tokens") or os.path.exists("apps/static/assets/tokens/tokens"):
+if not os.path.isdir("apps/static/assets/tokens") or not os.path.exists("apps/static/assets/tokens/tokens"):
     raise Exception("Missing tokens. Please add your tokens.")
 
 try:
