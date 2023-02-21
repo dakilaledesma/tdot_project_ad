@@ -7,15 +7,15 @@ from apps.processing import blueprint
 import flask
 from flask import Flask, render_template, flash, request, redirect, url_for, send_from_directory
 from flask_login import login_required
-from pdf2image import convert_from_path
 from glob import glob
-import PyPDF2
 import random
-from PIL import Image, ImageFilter
 
 from jinja2 import TemplateNotFound
 import os
 import shutil
+import googlemaps
+import pprint
+import json
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = "input_data"
@@ -155,6 +155,66 @@ def upload():
     """
     return flask.jsonify({"upload_string": ret_string})
 
+
+@blueprint.route('/placesdata')
+@login_required
+def placesdata():
+    with open("../static/assets/tokens/tokens") as tokens_file:
+        tokens = json.load(tokens_file)
+
+    opt_response = flask.request.args.get("options")
+    opts_dict = {}
+    opts_str = opt_response.split(",,")
+    for option in opts_str:
+        k, v = option.split(":")
+        opts_dict[k] = v
+
+    gmaps = googlemaps.Client(key=tokens["gmaps"])
+
+    nearby_result = gmaps.places_nearby(location=(40.714224, -73.961452),
+                                        radius=500,
+                                        keyword="park")
+
+    places = '<br>'.join(nearby_result["results"])
+
+    ret_string = f"""
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">Charts preview</h4>
+    </div>
+    <div class="card-body">
+        <p class="demo">
+            <table>
+                <tr>
+                    <td>
+                        Latitude: {opts_dict["lat"]}
+                    </td>
+                    <td>
+                        Longitude: {opts_dict["lon"]}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Places data: {places}
+                    </td>
+                    <td>
+                        Longitude: {opts_dict["lon"]}
+                    </td>
+                </tr>
+            </table>
+        </p>
+        <p>
+        <button class="btn btn-success" id="process_pdf_button">
+            <span class="btn-label">
+                <i class="fa fa-check"></i>
+            </span>
+            Pre-process
+        </button>
+        </p>
+    </div>
+</div>    
+    """
+    return flask.jsonify({"upload_string": ret_string})
 
 @blueprint.route('/process', methods=["GET", 'POST'])
 @login_required
