@@ -20,34 +20,18 @@
 						<i class="flaticon-right-arrow"></i>
 					</li>
 					<li class="nav-item">
-						<a href="#">GI Models</a>
+						<a href="#">Research Spreadsheet</a>
 					</li>
 					<li class="separator">
 						<i class="flaticon-right-arrow"></i>
 					</li>
 					<li class="nav-item">
-						<a href="#">Recreational Use</a>
+						<a href="#">Spreadsheet Tool</a>
 					</li>
 				</ul>
 			</div>
 			<div class="row">
 				<div class="col-md-12" id="main_panel">
-					<div class="card">
-						<div class="card-header">
-							<h4 class="card-title">Upload charts</h4>
-						</div>
-						<div class="card-body">
-							<p class="demo">
-								<input type="file" id="uploadfile" name="chart_upload" multiple>
-								<button class="btn btn-secondary" id="upload_pdf_button">
-									<span class="btn-label">
-										<i class="fa fa-plus"></i>
-									</span>
-									Upload
-								</button>
-							</p>
-						</div>
-					</div>
 
 				</div>
 			</div>
@@ -62,6 +46,72 @@
 
 	<!-- Atlantis DEMO methods, don't include it in your project! -->
 <!--	<script src="/static/assets/js/setting-demo2.js"></script>-->
-	<script src="/static/assets/js/gi_rec.js"></script>
+	<script>
+$(document).ready(function(){
+    $.ajax({
+        url: "/sp_load_majors",
+        type: "GET",
+        dataType: "json",
+        async: false,
+        success: function(data){
+            var majors_card = document.getElementById("load_majors_card");
+            if(majors_card){
+                $("#load_majors_card").html(data.return_string);
+            }else
+            {
+                $("#main_panel").append(data.return_string)
+            }
+        }
+    });
+});
+
+
+$(document).on('change', '#major_categories', function() {
+    var major_id = $(this).val();
+    $.ajax({
+        url: "/sp_load_subcategories",
+        type: "GET",
+        dataType: "json",
+        data: {
+            'major_category': major_id
+        },
+        async: false,
+        success: function(data){
+            var courses_card = document.getElementById("load_subc_card");
+            if(courses_card){
+                $("#load_courses_card").html(data.return_string);
+            }else
+            {
+                $("#main_panel").append(data.return_string)
+            }
+        }
+    });
+});
+
+
+$(document).on('change', '#subcategories', function() {
+    var subcategory_id = $(this).val();
+    var major_id = $("#major_categories").val();
+    $.ajax({
+        url: "/sp_load_params",
+        type: "GET",
+        dataType: "json",
+        data: {
+            'major_category': major_id,
+            'subcategory': subcategory_id
+        },
+        async: false,
+        success: function(data){
+            var courses_card = document.getElementById("load_params_card");
+            if(courses_card){
+                $("#load_courses_card").html(data.return_string);
+            }else
+            {
+                $("#main_panel").append(data.return_string)
+            }
+        }
+    });
+});
+</script>
 
 {% endblock javascripts %}
